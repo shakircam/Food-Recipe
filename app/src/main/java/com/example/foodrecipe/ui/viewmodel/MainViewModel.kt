@@ -23,16 +23,13 @@ class MainViewModel @Inject constructor(
        ): AndroidViewModel(application) {
 
     /** Room DataBase */
-
     val readRecipes : LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) = viewModelScope.launch(Dispatchers.IO) {
         repository.local.insertRecipes(recipesEntity)
     }
 
-
     /** Retrofit */
-    
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {

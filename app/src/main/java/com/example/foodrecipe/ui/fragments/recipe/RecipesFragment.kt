@@ -17,19 +17,16 @@ import com.example.foodrecipe.adapter.RecipesAdapter
 import com.example.foodrecipe.databinding.FragmentRecipesBinding
 import com.example.foodrecipe.ui.viewmodel.MainViewModel
 import com.example.foodrecipe.ui.viewmodel.RecipesViewModel
-import com.example.foodrecipe.util.Constants.Companion.API_KEY
-import com.example.foodrecipe.util.Constants.Companion.QUERY_ADD_RECIPE_INFORMATION
-import com.example.foodrecipe.util.Constants.Companion.QUERY_API_KEY
-import com.example.foodrecipe.util.Constants.Companion.QUERY_DIET
-import com.example.foodrecipe.util.Constants.Companion.QUERY_FILL_INGREDIENTS
-import com.example.foodrecipe.util.Constants.Companion.QUERY_NUMBER
-import com.example.foodrecipe.util.Constants.Companion.QUERY_TYPE
+import com.example.foodrecipe.util.NetworkListener
 import com.example.foodrecipe.util.NetworkResult
 import com.example.foodrecipe.util.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RecipesFragment : Fragment() {
 
@@ -39,6 +36,7 @@ class RecipesFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
+    private lateinit var networkListener: NetworkListener
     private val mAdapter by lazy { RecipesAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,8 +56,28 @@ class RecipesFragment : Fragment() {
 
 
         initRecyclerView()
-        readDatabase()
-        binding.recipesFab.setOnClickListener { findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet) }
+        recipesViewModel.readBackOnline.observe(viewLifecycleOwner,{
+            recipesViewModel.backOnline = it
+        })
+
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { status ->
+                    Log.d("Network Listener",status.toString())
+                    recipesViewModel.networkStatus = status
+                    recipesViewModel.showNetworkStatus()
+                    readDatabase()
+                }
+        }
+
+        binding.recipesFab.setOnClickListener {
+            if (recipesViewModel.networkStatus){
+                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            }else{
+                recipesViewModel.showNetworkStatus()
+            }
+        }
 
         return binding.root
     }
