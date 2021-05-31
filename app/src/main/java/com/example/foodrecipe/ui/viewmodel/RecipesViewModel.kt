@@ -9,9 +9,9 @@ import com.example.foodrecipe.data.local.DataStoreRepository
 import com.example.foodrecipe.util.Constants
 import com.example.foodrecipe.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.example.foodrecipe.util.Constants.Companion.DEFAULT_MEAL_TYPE
+import com.example.foodrecipe.util.Constants.Companion.DEFAULT_RECIPES_NUMBER
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,10 +52,22 @@ class RecipesViewModel @Inject constructor (
     }
       }
 
-        queries[Constants.QUERY_NUMBER] = "50"
+        queries[Constants.QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
         queries[Constants.QUERY_API_KEY] = Constants.API_KEY
         queries[Constants.QUERY_TYPE] = mealType
         queries[Constants.QUERY_DIET] = dietType
+        queries[Constants.QUERY_ADD_RECIPE_INFORMATION] = "true"
+        queries[Constants.QUERY_FILL_INGREDIENTS] = "true"
+
+        return queries
+    }
+
+    fun applySearchQueries(searchQuery: String): HashMap<String, String> {
+        val queries: HashMap<String, String> = HashMap()
+
+        queries[Constants.QUERY_SEARCH] = searchQuery
+        queries[Constants.QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+        queries[Constants.QUERY_API_KEY] = Constants.API_KEY
         queries[Constants.QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[Constants.QUERY_FILL_INGREDIENTS] = "true"
 
