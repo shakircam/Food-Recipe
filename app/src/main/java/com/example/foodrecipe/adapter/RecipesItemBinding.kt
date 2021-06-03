@@ -1,18 +1,37 @@
 package com.example.foodrecipe.adapter
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
 import coil.load
 import com.example.foodrecipe.R
+import com.example.foodrecipe.model.Result
+import com.example.foodrecipe.ui.fragments.recipe.RecipesFragmentDirections
+import org.jsoup.Jsoup
 
 
 class RecipesItemBinding {
 
 
     companion object {
+
+        @BindingAdapter("onRecipeClickListener")
+        @JvmStatic
+        fun onRecipeClickListener(recipeRawLayout: ConstraintLayout, result:Result) {
+            recipeRawLayout.setOnClickListener {
+                try {
+                    val action = RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
+                    recipeRawLayout.findNavController().navigate(action)
+                }catch (e: Exception){
+                    Log.d("onRecipeClickListener",e.toString())
+                }
+            }
+        }
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
@@ -58,6 +77,15 @@ class RecipesItemBinding {
                         )
                     }
                 }
+            }
+        }
+
+        @BindingAdapter("parseHtml")
+        @JvmStatic
+        fun parseHtml(textView: TextView,description:String?){
+            if (description!=null){
+                val des = Jsoup.parse(description).text()
+                textView.text = des
             }
         }
     }
