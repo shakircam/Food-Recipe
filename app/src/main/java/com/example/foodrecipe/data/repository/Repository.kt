@@ -1,4 +1,4 @@
-package com.example.foodrecipe
+package com.example.foodrecipe.data.repository
 
 import com.example.foodrecipe.data.local.LocalDataSource
 import com.example.foodrecipe.data.network.RemoteDataSource

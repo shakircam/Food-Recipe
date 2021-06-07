@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import coil.load
 import com.example.foodrecipe.R
-import com.example.foodrecipe.adapter.RecipesItemBinding
+import com.example.foodrecipe.bindingadapter.RecipesItemBinding
 import com.example.foodrecipe.model.Result
 import com.example.foodrecipe.databinding.FragmentOverviewBinding
 import com.example.foodrecipe.util.Constants.Companion.RECIPE_RESULT_KEY

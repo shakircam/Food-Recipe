@@ -191,7 +191,4 @@ class RecipesFragment : Fragment(),SearchView.OnQueryTextListener {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 }
