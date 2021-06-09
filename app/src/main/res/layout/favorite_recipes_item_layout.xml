@@ -43,7 +43,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:contentDescription="@string/image" />
 
                 <TextView
                     android:id="@+id/favorite_title_textView"
@@ -66,12 +67,12 @@
 
                 <TextView
                     android:id="@+id/favorite_description_textView"
+                    parseHtml="@{favoritesEntity.result.summary}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    parseHtml="@{favoritesEntity.result.summary}"
                     android:textColor="@color/descriptionColor"
                     app:layout_constraintEnd_toEndOf="@+id/favorite_title_textView"
                     app:layout_constraintStart_toStartOf="@+id/favorite_title_textView"
@@ -83,13 +84,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="36dp"
+                    android:contentDescription="@string/image"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/favorite_heart_textView"
                     app:layout_constraintStart_toStartOf="@+id/favorite_heart_textView"
                     app:layout_constraintTop_toBottomOf="@+id/favorite_description_textView"
                     app:srcCompat="@drawable/ic_heart"
-                    app:tint="@color/red"
-                    android:contentDescription="@string/image" />
+                    app:tint="@color/red" />
 
                 <TextView
                     android:id="@+id/favorite_heart_textView"
@@ -105,12 +106,12 @@
                     android:id="@+id/favorite_clock_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/image"
                     app:layout_constraintEnd_toEndOf="@+id/favorite_clock_textView"
                     app:layout_constraintStart_toStartOf="@+id/favorite_clock_textView"
                     app:layout_constraintTop_toTopOf="@+id/favorite_heart_imageView"
                     app:srcCompat="@drawable/ic_clock"
-                    app:tint="@color/yellow"
-                    android:contentDescription="@string/image"/>
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:id="@+id/favorite_clock_textView"
@@ -128,11 +129,11 @@
                     applyVeganColor="@{favoritesEntity.result.vegan}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/image"
                     app:layout_constraintEnd_toEndOf="@+id/favorite_leaf_textView"
                     app:layout_constraintStart_toStartOf="@+id/favorite_leaf_textView"
                     app:layout_constraintTop_toTopOf="@+id/favorite_clock_imageView"
-                    app:srcCompat="@drawable/ic_leaf"
-                    android:contentDescription="@string/image"/>
+                    app:srcCompat="@drawable/ic_leaf" />
 
                 <TextView
                     android:id="@+id/favorite_leaf_textView"

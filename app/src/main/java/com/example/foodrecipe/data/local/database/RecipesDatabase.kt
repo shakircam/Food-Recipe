@@ -4,10 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.foodrecipe.data.local.entity.FavoritesEntity
+import com.example.foodrecipe.data.local.entity.FoodJokeEntity
 import com.example.foodrecipe.data.local.entity.RecipesEntity
 
 
-@Database(entities = [RecipesEntity::class,FavoritesEntity::class],
+@Database(entities = [RecipesEntity::class,FavoritesEntity::class,FoodJokeEntity::class],
     version = 1,
     exportSchema = false)
 
